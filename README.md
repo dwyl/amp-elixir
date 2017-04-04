@@ -21,6 +21,8 @@ The best place to understand how AMP works is on the official "How it Works" pag
 
 Amp Elixir should support the same markdown as described in the [Earmark](https://github.com/pragdave/earmark) repository
 
+For these limitations see: https://hexdocs.pm/earmark/Earmark.html#module-limitations
+
 ### Api
 
 Amp.parse
