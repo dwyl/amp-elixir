@@ -3,16 +3,23 @@ defmodule Amp do
   Documentation for Amp.
   """
 
-  @doc """
-  `parse`
+  alias Amp.Template
+  alias Earmark.Options
 
-  ## Examples
-
-      iex> Amp.parse("# Hello World")
-      {:ok, "<h1>Hello World</h1>\\n", []}
-
-  """
-  def parse(md) do
-    Earmark.as_html(md)
+  def parse(md, opts \\ %{}) do
+    case Earmark.as_html(md, struct(Options, opts[:earmark_opts] || %{})) do
+      {:ok, parsed_html, []} ->
+        amp_html =
+          Template.opening_tags()
+          |> Template.head(opts)
+          |> Template.closing_head_opening_body_tags()
+          |> Template.body(parsed_html)
+          |> Template.closing_tags()
+        {:ok, amp_html, []}
+      {:error, _, errors} ->
+        {:error, errors}
+      unknown ->
+        IO.inspect unknown
+    end
   end
 end
