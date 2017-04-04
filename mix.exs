@@ -5,29 +5,46 @@ defmodule Amp.Mixfile do
     [app: :amp,
      version: "0.1.0",
      elixir: "~> 1.4",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps()]
+     deps: deps(),
+     elixirc_paths: elixirc_paths(Mix.env),
+     description: description(),
+     package: package(),
+     test_coverage: [tool: ExCoveralls],
+     preferred_cli_env: ["coveralls": :test,
+                         "coveralls.detail": :test,
+                         "coveralls.post": :test,
+                         "coveralls.html": :test]]
   end
 
-  # Configuration for the OTP application
-  #
-  # Type "mix help compile.app" for more information
   def application do
-    # Specify extra applications you'll use from Erlang/Elixir
     [extra_applications: [:logger]]
   end
 
-  # Dependencies can be Hex packages:
-  #
-  #   {:my_dep, "~> 0.3.0"}
-  #
-  # Or git/path repositories:
-  #
-  #   {:my_dep, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
-  #
-  # Type "mix help deps" for more examples and options
   defp deps do
-    []
+    [{:excoveralls, "~> 0.6.2"},
+     {:ex_doc, "~> 0.11", only: :dev}]
   end
+
+  defp description do
+    """
+    Amp is an Elixir Markdown to AMP HTML converter.
+    For more information on AMP HTML see:
+    https://www.ampproject.org/learn/overview/
+    """
+  end
+
+  defp package do
+    [
+      files: [
+        "lib", "mix.exs", "README.md"
+      ],
+      maintainers: [ "Sam Houston <sam@dwyl.io>" ],
+      links: %{
+        "GitHub" => "https://github.com/dwyl/amp-elixir",
+      }
+    ]
+  end
+
+  defp elixirc_paths(:test), do: [ "lib", "test/support" ]
+  defp elixirc_paths(_), do: [ "lib" ]
 end
