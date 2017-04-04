@@ -41,7 +41,7 @@ defmodule Amp.Mixfile do
         "lib", "mix.exs", "README.md"
       ],
       maintainers: [ "Sam Houston <sam@dwyl.io>" ],
-      licenses: ["MIT"]
+      licenses: ["MIT"],
       links: %{
         "GitHub" => "https://github.com/dwyl/amp-elixir",
       }
