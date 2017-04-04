@@ -4,15 +4,15 @@ defmodule Amp do
   """
 
   @doc """
-  Hello world.
+  `parse`
 
   ## Examples
 
-      iex> Amp.hello
-      :world
+      iex> Amp.parse("# Hello World")
+      {:ok, "<h1>Hello World</h1>\\n", []}
 
   """
-  def hello do
-    :world
+  def parse(md) do
+    Earmark.as_html(md)
   end
 end
