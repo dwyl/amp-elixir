@@ -1,5 +1,6 @@
 defmodule Amp.Template do
-  def opening_tags() do
+  @moduledoc false
+  def opening_tags do
     """
     <!DOCTYPE html>
     <html>
@@ -15,11 +16,15 @@ defmodule Amp.Template do
         html <> """
         <meta charset="utf-8">
         <link rel="canonical" href="#{opts[:canonical_url] || ""}">
-        <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+        <meta name="viewport"
+          content="width=device-width,minimum-scale=1,initial-scale=1">
         <style amp-custom>
           #{opts[:style] || ""}
         </style>
-        <style>body {opacity: 0}</style><noscript><style>body {opacity: 1}</style></noscript>
+        <style> body {opacity: 0} </style>
+        <noscript>
+          <style>body {opacity: 1} </style>
+        </noscript>
         <script async src="https://cdn.ampproject.org/v0.js"></script>
         <title>#{opts[:title] || ""}</title>
         #{opts[:extra_head_html] || ""}
@@ -45,4 +50,3 @@ defmodule Amp.Template do
     """
   end
 end
-

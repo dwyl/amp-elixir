@@ -23,6 +23,7 @@ defmodule Amp.Mixfile do
   defp deps do
     [{:excoveralls, "~> 0.6.2"},
      {:ex_doc, "~> 0.11", only: :dev},
+     {:dogma, "~> 0.1", only: :dev},
      {:earmark, "~> 1.2"}]
   end
 
