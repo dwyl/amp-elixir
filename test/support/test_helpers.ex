@@ -20,4 +20,7 @@ defmodule Amp.TestHelpers do
   def read_amp_html_head_override(file) do
     read("amp_html/head_override", file)
   end
+  def read_amp_html_empty_opts(file) do
+    read("amp_html/empty_opts", file)
+  end
 end

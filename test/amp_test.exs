@@ -6,6 +6,7 @@ defmodule AmpTest do
     read_markdown: 1,
     read_amp_html_no_config: 1,
     read_amp_html_head_override: 1,
+    read_amp_html_empty_opts: 1
   ]
 
   test "Renders a h1 tag" do
@@ -77,7 +78,7 @@ defmodule AmpTest do
             extra_head_html: ""
           }
         {:ok, actual_html, []} = Amp.parse(markdown, opts)
-        {:ok, expected_html} = read_amp_html_head_override(amp_html_file)
+        {:ok, expected_html} = read_amp_html_empty_opts(amp_html_file)
 
         actual = remove_white_space(actual_html)
         expected = remove_white_space(expected_html)
