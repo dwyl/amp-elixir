@@ -9,7 +9,7 @@ defmodule AmpTest do
   defp html_ext(name), do: name <> ".html"
 
   defp md_ext_to_html(markdown_file) do
-    String.split(markdown_file, ".") |> hd |> html_ext
+    markdown_file |> String.split(".") |> hd |> html_ext
   end
 
   defp remove_white_space(html) do
