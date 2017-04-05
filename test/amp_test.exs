@@ -1,13 +1,12 @@
 defmodule AmpTest do
   use ExUnit.Case
-  import Amp.TestHelpers
 
   test "Renders a h1 tag" do
     {:ok, html, []} = Amp.parse("# Hello World")
     assert html =~ "<h1>Hello World</h1>"
   end
 
-  # defp html_ext(name), do: name <> ".html"
+  defp html_ext(name), do: name <> ".html"
 
   defp md_ext_to_html(markdown_file) do
     String.split(markdown_file, ".") |> hd |> html_ext
@@ -20,14 +19,9 @@ defmodule AmpTest do
     |> Enum.join("\n")
   end
 
-  defp read(type) do
-    fn file ->
-      File.read("test/fixtures/#{type}/#{file}")
-    end
-  end
-
-  defp read_markdown(file), do: read("markdown").(file)
-  defp read_amp_html(file), do: read("amp_html").(file)
+  defp read(type, file), do: File.read("test/fixtures/#{type}/#{file}")
+  defp read_markdown(file), do: read("markdown", file)
+  defp read_amp_html(file), do: read("amp_html", file)
 
   test "Fixtures" do
     {:ok, markdown_files} = File.ls("test/fixtures/markdown")
