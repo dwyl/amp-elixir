@@ -1,12 +1,13 @@
 defmodule AmpTest do
   use ExUnit.Case
+  import Amp.TestHelpers
 
   test "Renders a h1 tag" do
     {:ok, html, []} = Amp.parse("# Hello World")
     assert html =~ "<h1>Hello World</h1>"
   end
 
-  defp html_ext(name), do: name <> ".html"
+  # defp html_ext(name), do: name <> ".html"
 
   defp md_ext_to_html(markdown_file) do
     String.split(markdown_file, ".") |> hd |> html_ext
@@ -15,9 +16,18 @@ defmodule AmpTest do
   defp remove_white_space(html) do
     html
     |> String.split("\n")
-    |> Enum.map(fn string -> String.strip(string) end)
+    |> Enum.map(&(String.strip(&1)))
     |> Enum.join("\n")
   end
+
+  defp read(type) do
+    fn file ->
+      File.read("test/fixtures/#{type}/#{file}")
+    end
+  end
+
+  defp read_markdown(file), do: read("markdown").(file)
+  defp read_amp_html(file), do: read("amp_html").(file)
 
   test "Fixtures" do
     {:ok, markdown_files} = File.ls("test/fixtures/markdown")
@@ -29,12 +39,15 @@ defmodule AmpTest do
 
       amp_html_file = md_ext_to_html(markdown_file)
 
-      {:ok, markdown} = File.read("test/fixtures/markdown/" <> markdown_file)
+      {:ok, markdown} = read_markdown(markdown_file)
 
       {:ok, actual_html, []} = Amp.parse(markdown)
-      {:ok, expected_html} = File.read("test/fixtures/amp_html/" <> amp_html_file)
+      {:ok, expected_html} = read_amp_html(amp_html_file)
 
-      assert remove_white_space(actual_html) == remove_white_space(expected_html)
+      actual = remove_white_space(actual_html)
+      expected = remove_white_space(expected_html)
+
+      assert actual == expected
     end)
   end
 end

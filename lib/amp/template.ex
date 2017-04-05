@@ -3,7 +3,7 @@ defmodule Amp.Template do
   def opening_tags do
     """
     <!DOCTYPE html>
-    <html>
+    <html amp>
     <head>
     """
   end

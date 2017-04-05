@@ -3,7 +3,7 @@ defmodule Amp do
   Documentation for Amp.
   """
 
-  alias Amp.Template
+  alias Amp.{Template, Images}
   alias Earmark.Options
 
   def parse(md, opts \\ %{}) do
@@ -15,6 +15,7 @@ defmodule Amp do
           |> Template.closing_head_opening_body_tags()
           |> Template.body(parsed_html)
           |> Template.closing_tags()
+          |> Images.parse_images(opts)
         {:ok, amp_html, []}
       {:error, _, errors} ->
         {:error, errors}
