@@ -4,7 +4,8 @@ defmodule AmpTest do
     md_ext_to_html: 1,
     remove_white_space: 1,
     read_markdown: 1,
-    read_amp_html: 1,
+    read_amp_html_no_config: 1,
+    read_amp_html_head_override: 1,
   ]
 
   test "Renders a h1 tag" do
@@ -12,25 +13,49 @@ defmodule AmpTest do
     assert html =~ "<h1>Hello World</h1>"
   end
 
-  test "Fixtures" do
-    {:ok, markdown_files} = File.ls("test/fixtures/markdown")
+  describe "fixtures" do
+    test "no config" do
+      {:ok, markdown_files} = File.ls("test/fixtures/markdown")
 
-    Enum.each(markdown_files, fn markdown_file ->
-      # e.g.
-      # markdown_file == hello_world.md
-      # amp_html_file == hello_world.html
+      Enum.each(markdown_files, fn markdown_file ->
+        # e.g.
+        # markdown_file == hello_world.md
+        # amp_html_file == hello_world.html
 
-      amp_html_file = md_ext_to_html(markdown_file)
+        amp_html_file = md_ext_to_html(markdown_file)
 
-      {:ok, markdown} = read_markdown(markdown_file)
+        {:ok, markdown} = read_markdown(markdown_file)
 
-      {:ok, actual_html, []} = Amp.parse(markdown)
-      {:ok, expected_html} = read_amp_html(amp_html_file)
+        {:ok, actual_html, []} = Amp.parse(markdown)
+        {:ok, expected_html} = read_amp_html_no_config(amp_html_file)
 
-      actual = remove_white_space(actual_html)
-      expected = remove_white_space(expected_html)
+        actual = remove_white_space(actual_html)
+        expected = remove_white_space(expected_html)
 
-      assert actual == expected
-    end)
+        assert actual == expected
+      end)
+    end
+
+    test "head_override" do
+      {:ok, markdown_files} = File.ls("test/fixtures/markdown")
+
+      Enum.each(markdown_files, fn markdown_file ->
+        # e.g.
+        # markdown_file == hello_world.md
+        # amp_html_file == hello_world.html
+
+        amp_html_file = md_ext_to_html(markdown_file)
+
+        {:ok, markdown} = read_markdown(markdown_file)
+
+        {:ok, actual_html, []} = Amp.parse(markdown, %{head_override: ""})
+        {:ok, expected_html} = read_amp_html_head_override(amp_html_file)
+
+        actual = remove_white_space(actual_html)
+        expected = remove_white_space(expected_html)
+
+        assert actual == expected
+      end)
+    end
   end
 end

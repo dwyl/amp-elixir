@@ -19,8 +19,6 @@ defmodule Amp do
         {:ok, amp_html, []}
       {:error, _, errors} ->
         {:error, errors}
-      unknown ->
-        IO.inspect unknown
     end
   end
 end
