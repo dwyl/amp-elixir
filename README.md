@@ -1,5 +1,9 @@
 # Amp Elixir
 
+[![Build Status](https://travis-ci.org/dwyl/amp-elixir.svg?branch=master)](https://travis-ci.org/dwyl/amp-elixir)
+[![codecov.io](https://codecov.io/github/dwyl/amp-elixir/coverage.svg?branch=master)](https://codecov.io/github/dwyl/amp?branch=master)
+[![Hex version](https://img.shields.io/hexpm/v/amp.svg "Hex version")](https://hex.pm/packages/amp)
+
 Amp transforms your Markdown into AMP-compliant html so it loads super-fast!
 
 ## Why?
