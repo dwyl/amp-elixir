@@ -8,6 +8,10 @@ defmodule AmpTest do
 
   defp html_ext(name), do: name <> ".html"
 
+  defp md_ext_to_html(markdown_file) do
+    String.split(markdown_file, ".") |> hd |> html_ext
+  end
+
   defp remove_white_space(html) do
     html
     |> String.split("\n")
@@ -16,13 +20,14 @@ defmodule AmpTest do
   end
 
   test "Fixtures" do
-    "test/fixtures/markdown"
-    |> File.ls
-    |> elem(1)
-    |> Enum.each(fn markdown_file ->
-      amp_html_file = String.split(markdown_file, ".")
-        |> hd
-        |> html_ext
+    {:ok, markdown_files} = File.ls("test/fixtures/markdown")
+
+    Enum.each(markdown_files, fn markdown_file ->
+      # e.g.
+      # markdown_file == hello_world.md
+      # amp_html_file == hello_world.html
+
+      amp_html_file = md_ext_to_html(markdown_file)
 
       {:ok, markdown} = File.read("test/fixtures/markdown/" <> markdown_file)
 
