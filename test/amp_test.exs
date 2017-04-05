@@ -57,5 +57,33 @@ defmodule AmpTest do
         assert actual == expected
       end)
     end
+
+    test "canonical_url, style, title, extra_head_html" do
+      {:ok, markdown_files} = File.ls("test/fixtures/markdown")
+
+      Enum.each(markdown_files, fn markdown_file ->
+        # e.g.
+        # markdown_file == hello_world.md
+        # amp_html_file == hello_world.html
+
+        amp_html_file = md_ext_to_html(markdown_file)
+
+        {:ok, markdown} = read_markdown(markdown_file)
+
+        opts =
+          %{canonical_url: "",
+            style: "",
+            title: "",
+            extra_head_html: ""
+          }
+        {:ok, actual_html, []} = Amp.parse(markdown, opts)
+        {:ok, expected_html} = read_amp_html_head_override(amp_html_file)
+
+        actual = remove_white_space(actual_html)
+        expected = remove_white_space(expected_html)
+
+        assert actual == expected
+      end)
+    end
   end
 end
