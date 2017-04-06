@@ -12,15 +12,6 @@ defmodule Amp.TestHelpers do
     |> Enum.join("\n")
   end
 
-  defp read(type, file), do: File.read("test/fixtures/#{type}/#{file}")
+  def read(type, file), do: File.read("test/fixtures/#{type}/#{file}")
   def read_markdown(file), do: read("markdown", file)
-  def read_amp_html_no_config(file) do
-    read("amp_html/no_config", file)
-  end
-  def read_amp_html_head_override(file) do
-    read("amp_html/head_override", file)
-  end
-  def read_amp_html_empty_opts(file) do
-    read("amp_html/empty_opts", file)
-  end
 end
