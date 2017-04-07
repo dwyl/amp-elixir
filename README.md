@@ -1,8 +1,10 @@
 # Amp Elixir
 
 [![Build Status](https://travis-ci.org/dwyl/amp-elixir.svg?branch=master)](https://travis-ci.org/dwyl/amp-elixir)
-[![codecov.io](https://codecov.io/github/dwyl/amp-elixir/coverage.svg?branch=master)](https://codecov.io/github/dwyl/amp?branch=master)
-[![Hex version](https://img.shields.io/hexpm/v/amp.svg "Hex version")](https://hex.pm/packages/amp)
+[![codecov.io](https://codecov.io/github/dwyl/amp-elixir/coverage.svg?branch=master)](https://codecov.io/github/dwyl/amp-elixir?branch=master)
+[![Hex version](https://img.shields.io/hexpm/v/amp.svg)](https://hex.pm/packages/amp)
+[![Deps Status](https://beta.hexfaktor.org/badge/all/github/dwyl/amp-elixir.svg?branch=master)](https://beta.hexfaktor.org/github/dwyl/amp-elixir)
+[![Inline docs](https://inch-ci.org/github/dwyl/amp-elixir.svg?branch=master)](https://inch-ci.org/github/dwyl/amp-elixir)
 
 Amp transforms your Markdown into AMP-compliant html so it loads super-fast!
 
